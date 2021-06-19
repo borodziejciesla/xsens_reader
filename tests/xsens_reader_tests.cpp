@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "xsens_reader.h"
+#include "xsens_reader_handler.h"
 
 class XsensReaderTests : public ::testing::Test
 {
@@ -11,6 +11,12 @@ class XsensReaderTests : public ::testing::Test
 
 TEST_F(XsensReaderTests, ConstructorTest)
 {
-    xsens_reader::XsensReader reader;
+    XsControl* control = XsControl::construct();
+    XsPortInfo mtPort;
+    XsDevice* device = control->device(mtPort.deviceId());
+    xsens_reader::XsensReaderHandler callback;
+
+    device->addCallbackHandler(&callback);
+
     EXPECT_TRUE(true);
 }
